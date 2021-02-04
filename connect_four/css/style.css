@@ -1,5 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand+SC&display=swap');
+
 body {
-    background-color: #F5E3E0;
+    background-color: #9B9AE2;
+    font-family: 'Patrick Hand SC', monospace; 
 }
 
 .game-container {
@@ -25,8 +28,7 @@ body {
     height:150px;
     justify-content: center;
     align-items: center;
-    background-color: rgb(240, 240, 97);
-    /* border: 1px solid black; */
+    background-color: #ffe44a;
 }
 
 .hole{
