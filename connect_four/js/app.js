@@ -61,20 +61,23 @@ $(()=>{
   }
 
   const checkDiagonals = () => {
-    ////forwards diagonals
-    for(col=-2;col<game[0].length-3;col++){
-      const fourInARow = []
+    for(col=-2;col<game[0].length+2;col++){
+      const fourInARowForward = []
+      const fourInARowBackward = []
       let offset=0
       for(row=0;row<game.length;row++){
-        fourInARow.push(game[row][col+offset])
+        fourInARowForward.push(game[row][col+offset])
+        fourInARowBackward.push(game[row][col-offset])
         offset++
-        if(checkFourInARow(fourInARow)){
-            break
+        if(checkFourInARow(fourInARowForward)){
+          break
           }
-      } 
-      console.log(fourInARow);
+        if(checkFourInARow(fourInARowBackward)){
+          break
+          }
+        } 
+      }
     }
-  }
 
   const placeChip = (hole,holeRow,holeCol) => {
       game[holeRow][holeCol]= currentTurn.team
@@ -92,9 +95,9 @@ $(()=>{
     let holeRow = parseInt(classList[1])
     let holeCol = parseInt(typeof classList[2] === 'undefined'? classList[1]: classList[2])
 
-    if((holeRow === game.length-1) || (["blue","red"].includes(game[holeRow+1][holeCol]))) {
+    // if((holeRow === game.length-1) || (["blue","red"].includes(game[holeRow+1][holeCol]))) {
       placeChip(hole,holeRow,holeCol)
-    }
+    // }
   }
 
 generateBoard(6,7)
