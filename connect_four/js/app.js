@@ -60,12 +60,29 @@ $(()=>{
     }
   }
 
+  const checkDiagonals = () => {
+    ////forwards diagonals
+    for(col=-2;col<game[0].length-3;col++){
+      const fourInARow = []
+      let offset=0
+      for(row=0;row<game.length;row++){
+        fourInARow.push(game[row][col+offset])
+        offset++
+        if(checkFourInARow(fourInARow)){
+            break
+          }
+      } 
+      console.log(fourInARow);
+    }
+  }
+
   const placeChip = (hole,holeRow,holeCol) => {
       game[holeRow][holeCol]= currentTurn.team
       hole.css('background-color',currentTurn.color)
       hole.off('click',checkValidMove)
       checkRow(holeRow)
       checkColumn(holeCol)
+      checkDiagonals()
       currentTurn = turns[(turns.indexOf(currentTurn)+1)%turns.length]
   } 
 
