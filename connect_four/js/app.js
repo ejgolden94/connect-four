@@ -26,10 +26,28 @@ $(()=>{
     }
   }
 
+  const win = () => {
+    $('body').append($('<h2>').text(`${currentTurn.team} wins the game!`).css('color',currentTurn.color))
+  }
+
+  const checkRow = (holeRow) => {
+    let fourInARow = []
+    for(hole of game[holeRow]){
+      fourInARow.push(hole)
+      if (fourInARow.length > 4){
+        fourInARow.shift()
+      }
+      if(fourInARow.every(hole => hole === currentTurn.team)){
+        win()
+      }
+    }
+  }
+
   const placeChip = (hole,holeRow,holeCol) => {
       game[holeRow][holeCol]= currentTurn.team
       hole.css('background-color',currentTurn.color)
       hole.off('click',checkValidMove)
+      checkRow(holeRow)
       currentTurn = turns[(turns.indexOf(currentTurn)+1)%turns.length]
   } 
 

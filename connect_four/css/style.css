@@ -1,8 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Patrick+Hand+SC&display=swap');
 
+html {
+    font-size: 16px;
+}
+
 body {
     background-color: #9B9AE2;
-    font-family: 'Patrick Hand SC', monospace; 
+    font-family: 'Patrick Hand SC', monospace;
+    text-align: center;
+}
+
+h1 {
+    font-size: 4rem;
+}
+
+h2{
+    font-size: 3rem;
 }
 
 .game-container {
@@ -11,6 +24,7 @@ body {
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    margin: 0 auto;
     /* border: 5px solid teal; */
 }
 
