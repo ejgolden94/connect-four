@@ -30,15 +30,32 @@ $(()=>{
     $('body').append($('<h2>').text(`${currentTurn.team} wins the game!`).css('color',currentTurn.color))
   }
 
+  const checkFourInARow = (fourInARow) => {
+    if (fourInARow.length > 4){
+      fourInARow.shift()
+    }
+    if (fourInARow.length === 4 && fourInARow.every(hole => hole === currentTurn.team)){
+      win()
+      return true
+    }
+  }
+
   const checkRow = (holeRow) => {
-    let fourInARow = []
+    const fourInARow = []
     for(hole of game[holeRow]){
       fourInARow.push(hole)
-      if (fourInARow.length > 4){
-        fourInARow.shift()
+      if (checkFourInARow(fourInARow)){
+        break
       }
-      if(fourInARow.every(hole => hole === currentTurn.team)){
-        win()
+    }
+  }
+
+  const checkColumn = (holeCol) => {
+    const fourInARow = []
+    for(row of game){
+      fourInARow.push(row[holeCol])
+      if (checkFourInARow(fourInARow)){
+        break
       }
     }
   }
@@ -48,6 +65,7 @@ $(()=>{
       hole.css('background-color',currentTurn.color)
       hole.off('click',checkValidMove)
       checkRow(holeRow)
+      checkColumn(holeCol)
       currentTurn = turns[(turns.indexOf(currentTurn)+1)%turns.length]
   } 
 
