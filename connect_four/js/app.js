@@ -5,30 +5,44 @@ $(()=>{
     {team: 'blue', color:'#1874C9'}
   ]
   let currentTurn = turns[1]
-
+  // store the game results here
+  let game = []
 
   const makeNewSlot = (row,col) =>{
     const $newSlot = $('<div>').addClass(`slot ${row} ${col}`)
-    const $newHole = $('<div>').addClass('hole').on('click',placeChip)
+    const $newHole = $('<div>').addClass(`hole ${row} ${col}`).on('click',checkValidMove)
     $('.game-container').append($newSlot.append($newHole))
     return $newSlot
   }
 
   const generateBoard = (row,col) => {
     for(i=0;i<row;i++){
+      game.push([])
       // const $newRow = $('<div>').addClass(`row ${i}`)
       for(j=0;j<col;j++){
+        game[i].push(j) 
         makeNewSlot(i,j).css('width',`${900/col}px`).css('height',`${900/col}px`)
       }
     }
   }
 
-  const placeChip = (event) => {
-    $(event.target).css('background-color',currentTurn.color)
-    $(event.target).off('click',placeChip)
-    currentTurn = turns[(turns.indexOf(currentTurn)+1)%turns.length]
-
+  const placeChip = (hole,holeRow,holeCol) => {
+      game[holeRow][holeCol]= currentTurn.team
+      hole.css('background-color',currentTurn.color)
+      hole.off('click',checkValidMove)
+      currentTurn = turns[(turns.indexOf(currentTurn)+1)%turns.length]
   } 
+
+  const checkValidMove = (event) => {
+    const hole = $(event.target)
+    const classList = hole.attr('class').split(' ')
+    let holeRow = parseInt(classList[1])
+    let holeCol = parseInt(typeof classList[2] === 'undefined'? classList[1]: classList[2])
+
+    if((holeRow === game.length-1) || (["blue","red"].includes(game[holeRow+1][holeCol]))) {
+      placeChip(hole,holeRow,holeCol)
+    }
+  }
 
 generateBoard(6,7)
 
