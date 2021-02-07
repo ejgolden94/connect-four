@@ -18,6 +18,10 @@ h2{
     font-size: 4rem;
 }
 
+h3{
+    font-size: 2rem;
+}
+
 .gameplay{ 
     width: 100%;
     display: flex;
@@ -73,4 +77,19 @@ button:focus{
     height:85%;
     border-radius: 50%;
     background-color: white;
+}
+
+/* .streak {
+    display:flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-evenly;
+} */
+
+.team-1 {
+    color: #C91818
+}
+
+.team-2 {
+    color: #1874C9
 }

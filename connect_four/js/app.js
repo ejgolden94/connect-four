@@ -1,8 +1,16 @@
 $(()=>{
   //global variables
   const turns = [
-    {team: 'red', color:'#C91818'},
-    {team: 'blue', color:'#1874C9'}
+    {
+      team: 'red',
+      color: '#C91818',
+      streak: 0
+    },
+    {
+      team: 'blue',
+      color: '#1874C9',
+      streak: 0
+    }
   ]
   let currentTurn = turns[1]
   // store the game results here
@@ -37,8 +45,15 @@ $(()=>{
   /////////////////////////////////////
   ////Functions to determine the winner
   /////////////////////////////////////
+  const updateStreak = () => {
+    currentTurn.streak++
+    let teamNo = turns.indexOf(currentTurn) + 1
+    $(`#team-${teamNo}-streak`).text(currentTurn.streak)
+  }
+
   const win = () => {
     $('.message').append($('<h2>').text(`${currentTurn.team} wins the game!`).css('color',currentTurn.color))
+    updateStreak()
     playing = false
   }
 
