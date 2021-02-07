@@ -7,7 +7,12 @@ $(()=>{
   let currentTurn = turns[1]
   // store the game results here
   let game = []
+  /// controls whether or not moves can be made
+  let playing = true
 
+  /////////////////////////////////
+  ////Functions to create the board
+  /////////////////////////////////
   const makeNewSlot = (row,col) =>{
     const $newSlot = $('<div>').addClass(`slot ${row} ${col}`)
     const $newHole = $('<div>').addClass(`hole ${row} ${col}`).on('click',checkValidMove)
@@ -16,9 +21,9 @@ $(()=>{
   }
 
   const generateBoard = (row,col) => {
+    console.log(playing)
     for(i=0;i<row;i++){
       game.push([])
-      // const $newRow = $('<div>').addClass(`row ${i}`)
       for(j=0;j<col;j++){
         game[i].push(j) 
         makeNewSlot(i,j).css('width',`${900/col}px`).css('height',`${900/col}px`)
@@ -26,8 +31,12 @@ $(()=>{
     }
   }
 
+  /////////////////////////////////////
+  ////Functions to determine the winner
+  /////////////////////////////////////
   const win = () => {
-    $('body').append($('<h2>').text(`${currentTurn.team} wins the game!`).css('color',currentTurn.color))
+    $('.message').append($('<h2>').text(`${currentTurn.team} wins the game!`).css('color',currentTurn.color))
+    playing = false
   }
 
   const checkFourInARow = (fourInARow) => {
@@ -78,7 +87,10 @@ $(()=>{
         } 
       }
     }
-
+  
+  ////////////////////////////
+  ////Functions to make a move
+  ////////////////////////////
   const placeChip = (hole,holeRow,holeCol) => {
       game[holeRow][holeCol]= currentTurn.team
       hole.css('background-color',currentTurn.color)
@@ -90,17 +102,34 @@ $(()=>{
   } 
 
   const checkValidMove = (event) => {
-    const hole = $(event.target)
-    const classList = hole.attr('class').split(' ')
-    let holeRow = parseInt(classList[1])
-    let holeCol = parseInt(typeof classList[2] === 'undefined'? classList[1]: classList[2])
+    if (playing){
+      const hole = $(event.target)
+      const classList = hole.attr('class').split(' ')
+      let holeRow = parseInt(classList[1])
+      let holeCol = parseInt(typeof classList[2] === 'undefined'? classList[1]: classList[2])
 
-    // if((holeRow === game.length-1) || (["blue","red"].includes(game[holeRow+1][holeCol]))) {
-      placeChip(hole,holeRow,holeCol)
-    // }
+      if((holeRow === game.length-1) || (["blue","red"].includes(game[holeRow+1][holeCol]))) {
+        placeChip(hole,holeRow,holeCol)
+      }
+    }
   }
 
-generateBoard(6,7)
+  ////////////////////////////
+  ////Staring the Game
+  ////////////////////////////
+  const startGame = () => {
+    playing = true
+    $('.game-container').empty()
+    $('.message').empty()
+    game = []
+    generateBoard(6,7)
+  }
 
 
+  /// Event Listeners 
+  const $startbtn = $('#start').on('click',startGame)
+
+
+  /// Initial Start 
+  generateBoard(6,7)
 })
