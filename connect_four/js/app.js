@@ -25,14 +25,13 @@ $(()=>{
   /////////////////////////////////
   const makeNewSlot = (row,col) =>{
     const $newSlot = $('<div>').addClass(`slot ${row} ${col}`)
-    const $newHole = $('<div>').addClass(`hole ${row} ${col}`).on('click',checkValidMove)
+    const $newHole = $('<div>').addClass(`hole ${row} ${col}`).attr('id',`${row}-${col}`).on('click',checkValidMove)
     $('.game-container').append($newSlot.append($newHole))
     return $newSlot
   }
 
   const generateBoard = (row,col) => {
     maxMoves = row*col
-    console.log(playing)
     for(i=0;i<row;i++){
       game.push([])
       for(j=0;j<col;j++){
@@ -113,19 +112,44 @@ $(()=>{
       }
     }
   
+  ///////////////////////
+  /////Falling into place
+  ///////////////////////
+  /* Pseudo code 
+  when a hole is clicked it should set off a function that 
+  1. turns the top hole the color of that team through adding a class
+  2. removes the class from te previous hole and adds it to the next hole 
+  3. 1 and 2 continue until the next hole in the column is filled with a red or blue chip
+  4. humans should be able to see this occurring, so a set time interval should be specified between class changes
+  */
+  const fallIntoPlace = (holeCol) => {
+    let startRow = 0
+    const fall = setInterval(()=>{
+      if((startRow === game.length-1) || (["blue","red"].includes(game[startRow][holeCol]))){
+        clearInterval(fall)
+      }
+        $(`#${startRow-1}-${holeCol}`).removeClass(currentTurn.team)
+        $(`#${startRow}-${holeCol}`).addClass(currentTurn.team)
+        startRow++
+    },50)
+    // console.log(startRow)
+    // console.log(game);
+  }
+
   ////////////////////////////
   ////Functions to make a move
   ////////////////////////////
   const placeChip = (hole,holeRow,holeCol) => {
       currentMoves++
+      currentTurn = turns[(turns.indexOf(currentTurn)+1)%turns.length]
       game[holeRow][holeCol]= currentTurn.team
-      hole.css('background-color',currentTurn.color)
+      // hole.css('background-color',currentTurn.color)
       hole.off('click',checkValidMove)
+      fallIntoPlace(holeCol)
       checkRow(holeRow)
       checkColumn(holeCol)
       checkDiagonals()
       checkTie()
-      currentTurn = turns[(turns.indexOf(currentTurn)+1)%turns.length]
   } 
 
   const checkValidMove = (event) => {
@@ -149,6 +173,7 @@ $(()=>{
     $('.game-container').empty()
     $('.message').empty()
     game = []
+    currentMoves = 0
     generateBoard(6,7)
   }
 
