@@ -9,6 +9,8 @@ $(()=>{
   let game = []
   /// controls whether or not moves can be made
   let playing = true
+  let currentMoves = 0
+  let maxMoves
 
   /////////////////////////////////
   ////Functions to create the board
@@ -21,6 +23,7 @@ $(()=>{
   }
 
   const generateBoard = (row,col) => {
+    maxMoves = row*col
     console.log(playing)
     for(i=0;i<row;i++){
       game.push([])
@@ -37,6 +40,13 @@ $(()=>{
   const win = () => {
     $('.message').append($('<h2>').text(`${currentTurn.team} wins the game!`).css('color',currentTurn.color))
     playing = false
+  }
+
+  const checkTie = () => {
+    if (currentMoves === maxMoves){
+      $('.message').append($('<h2>').text(`It's A Tie!`))
+    playing = false
+    }
   }
 
   const checkFourInARow = (fourInARow) => {
@@ -92,12 +102,14 @@ $(()=>{
   ////Functions to make a move
   ////////////////////////////
   const placeChip = (hole,holeRow,holeCol) => {
+      currentMoves++
       game[holeRow][holeCol]= currentTurn.team
       hole.css('background-color',currentTurn.color)
       hole.off('click',checkValidMove)
       checkRow(holeRow)
       checkColumn(holeCol)
       checkDiagonals()
+      checkTie()
       currentTurn = turns[(turns.indexOf(currentTurn)+1)%turns.length]
   } 
 
