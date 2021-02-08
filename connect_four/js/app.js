@@ -5,10 +5,35 @@ $(()=>{
       game: [],
       playing: true,
       turns: [],
-      currentTurn: 'none',   
+      currentTurn: 'none',  
+      boardSize: 4,
+      columns: 7,
+      rows: 6,
       addPlayer(player){
           this.turns.push(player)
           this.currentTurn = this.turns[0]   
+      },
+      updateBoardSize(num){
+        if(num > 6) {
+          num = 6
+        }else if(num < 4 ){
+          num = 4
+        }
+        this.boardSize = num
+        if (num === 4){
+          this.rows = 6
+          this.columns = 7
+          console.log($('#size'));
+        } else if (num === 5){
+          this.rows = 7
+          this.columns = 8
+          $('#size').text('Five')
+        } else if (num === 6){
+          this.rows = 8
+          this.columns = 9
+          $('#size').text('Six')
+        }
+        this.startGame()
       },
       //////////////
       ////Start Game
@@ -19,7 +44,7 @@ $(()=>{
           $('.message').empty()
           connectFour.game = []
           connectFour.currentMoves = 0
-          connectFour.generateBoard(6,7)
+          connectFour.generateBoard(connectFour.rows,connectFour.columns)
       },
       /////////////////////////////////
       ////Functions to create the board
@@ -30,13 +55,13 @@ $(()=>{
           $('.game-container').append($newSlot.append($newHole))
           return $newSlot
       },
-      generateBoard(row,col){
-          this.maxMoves = row * col
-          for(let i=0;i<row;i++){
+      generateBoard(){
+          this.maxMoves = this.rows * this.columns
+          for(let i=0;i<this.rows;i++){
               this.game.push([])
-              for(let j=0;j<col;j++){
+              for(let j=0;j<this.columns;j++){
                   this.game[i].push(j) 
-                  this.makeNewSlot(i,j).css('width',`${900/col}px`).css('height',`${900/col}px`)
+                  this.makeNewSlot(i,j).css('width',`${900/this.columns}px`).css('height',`${900/this.columns}px`)
               }
           }
       },
@@ -106,10 +131,10 @@ $(()=>{
           }
       },
       checkFourInARow(fourInARow){
-          if (fourInARow.length > 4){
+          if (fourInARow.length > this.boardSize){
             fourInARow.shift()
           }
-          if (fourInARow.length === 4 && fourInARow.every(hole => hole === this.currentTurn.team)){
+          if (fourInARow.length === this.boardSize && fourInARow.every(hole => hole === this.currentTurn.team)){
             this.win()
             return true
           }
@@ -175,9 +200,11 @@ $(()=>{
 
   //Event Listeners
   const $startbtn = $('#start').on('click',connectFour.startGame)
+  const $incBoardbtn = $('#inc-board').on('click',()=>{connectFour.updateBoardSize(connectFour.boardSize+1)})
+  const $decBoardbtn = $('#dec-board').on('click',()=>{connectFour.updateBoardSize(connectFour.boardSize-1)})
 
   // create the initial board
-  connectFour.generateBoard(6,7)
+  connectFour.generateBoard()
   console.log(connectFour)
 
 })

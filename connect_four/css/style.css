@@ -71,6 +71,26 @@ button:focus{
     color:#84A59D;
 } 
 
+#inc-board{
+    background-color: #3D405B;
+    border: 2px solid #3D405B;
+}
+
+#inc-board:hover{
+    background-color: #f5efe9; 
+    color:#3D405B;
+}
+
+#dec-board{
+    background-color: #F28482;
+    border: 2px solid #F28482;
+}
+
+#dec-board:hover{
+    background-color: #f5efe9; 
+    color:#F28482;
+}
+
 .game-container {
     width: 900px;
     display: flex;
@@ -96,7 +116,7 @@ button:focus{
 }
 
 .available:hover{
-    background-color: rgb(244, 236, 190);
+    background-color: rgb(201, 235, 134);
 }
 
 .red {
