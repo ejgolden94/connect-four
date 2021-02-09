@@ -22,6 +22,11 @@ h3{
     font-size: 2rem;
 }
 
+p{
+    font-size: 1.3rem;
+    line-height: 1.5;
+}
+
 .gameplay{ 
     width: 100%;
     display: flex;
@@ -51,12 +56,12 @@ button:focus{
     outline:none;
 }
 
-#how-to{
+#how-to, #close{
     background-color: #E07A5F; 
     border: 2px solid #E07A5F;
 }
 
-#how-to:hover{
+#how-to:hover, #close:hover{
     background-color: #f5efe9; 
     color:#E07A5F;
 } 
@@ -133,4 +138,49 @@ button:focus{
 
 .team-2 {
     color: #1874C9;
+}
+
+#modal {
+	background-color: rgba(0,0,0,0.5);
+	position: fixed;
+	top: 0;
+	left: 0; 
+	height: 100%;
+	width: 100%;
+	z-index: 1;
+	overflow: scroll;
+    display: none;
+}
+
+#modal-textbox {
+	background-color: white;
+	height: 350px;
+	width: 550px;
+    border-radius: 2px;
+    margin: 150px auto;
+	/*This will set the margins for the top and the bottom to 150px (or larger). The right and left will automatically set themselves (and keep the box centered horizontally).*/
+	box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
+    /*This will give the box some depth.*/
+    padding: 4%;
+}
+#modal-textbox h3{
+    margin: -10px auto 30px auto ;
+}
+
+#close {
+    height: 40px;
+    width:75px;
+    margin: 0 auto;
+}
+
+#span-start{
+    color: #84A59D;
+}
+
+#span-inc{
+    color: #3D405B;
+}
+
+#span-dec{
+    color: #F28482;
 }

@@ -20,21 +20,31 @@
         
         </div>
         <div class = 'stats'>
-            <h2>Streak</h2>
+            <h2>Score</h2>
             <div class="streak">
                 <div class='team-1'>
                     <h3>Red Team</h3>
-                    <h3 id="team-1-streak">0</h3>
+                    <h3 id="team-1-score">0</h3>
                 </div>
                 <div class='team-2'>
                     <h3>Blue Team</h3>
-                    <h3 id="team-2-streak">0</h3>
+                    <h3 id="team-2-score">0</h3>
                 </div>
             </div>
         </div>
     </div>
     <div class="message">
 
+    </div>
+    <div id="modal">
+        <div id='modal-textbox'>
+            <h3>How To Play Connect Four</h3>
+            <p>Players take turns placing disks in lowest open slot in any column. The first player to get four disks in a row in any direction (horizontally, vertically or diagonally) wins the game! If all slots are filled and no one has gotten four disks in a row, the players tie!</p>
+            <p>To start a new game, hit <span id="span-start"><strong>Start New Game</strong></span>. <br>To play Connect Five or Connect Six hit <span id="span-inc"><strong>Increase Board Size</strong></span>. <br>To return to a smaller board size, hit <span id="span-dec"><strong>Decrease Board Size</strong></span>.</p>
+            <div id='modal-footer'>
+                <button id="close">Close</button>
+            </div>
+        </div>
     </div>
 </body>
 </html>

@@ -23,7 +23,7 @@ $(()=>{
         if (num === 4){
           this.rows = 6
           this.columns = 7
-          console.log($('#size'));
+          $('#size').text('Four')
         } else if (num === 5){
           this.rows = 7
           this.columns = 8
@@ -121,7 +121,7 @@ $(()=>{
       win(){
           $('.hole').removeClass('available')
           $('.message').append($('<h2>').text(`${this.currentTurn.team} wins the game!`).css('color',this.currentTurn.color))
-          this.currentTurn.updateStreak()
+          this.currentTurn.updateScore()
           this.playing = false
       },
       checkTie(){
@@ -182,11 +182,11 @@ $(()=>{
           this.team = team 
           this.color = color
           this.teamNo = teamNo
-          this.streak = 0
+          this.score = 0
       }
-      updateStreak(){
-          this.streak++
-          $(`#team-${this.teamNo}-streak`).text(this.streak)
+      updateScore(){
+          this.score++
+          $(`#team-${this.teamNo}-score`).text(this.score)
       }
   }
 
@@ -202,6 +202,8 @@ $(()=>{
   const $startbtn = $('#start').on('click',connectFour.startGame)
   const $incBoardbtn = $('#inc-board').on('click',()=>{connectFour.updateBoardSize(connectFour.boardSize+1)})
   const $decBoardbtn = $('#dec-board').on('click',()=>{connectFour.updateBoardSize(connectFour.boardSize-1)})
+  const $openModal = $('#how-to').on('click',()=>{$('#modal').css('display','block')})
+  const $closeModal = $('#close').on('click',()=>{$('#modal').css('display','none')})
 
   // create the initial board
   connectFour.generateBoard()
