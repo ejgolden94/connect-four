@@ -132,6 +132,26 @@ button:focus{
     background-color: #1874C9;
 }
 
+.pink{
+    background-color: #F28482;
+} 
+
+.teal{
+    background-color: #84A59D;
+} 
+
+.midnight{
+    background-color: #3D405B;
+} 
+
+.orange{
+    background-color: #E07A5F;
+} 
+
+.purple{
+    background-color: #7678ED;
+} 
+
 .team-1 {
     color: #C91818;
 }

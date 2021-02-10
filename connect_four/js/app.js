@@ -9,9 +9,22 @@ $(()=>{
       boardSize: 4,
       columns: 7,
       rows: 6,
+      colors:[
+        {name: "red" , color:'#C91818'},
+        {name: "blue" , color:'#1874C9'},
+        {name: "pink" , color:'#F28482'},
+        {name: "teal" , color:'#84A59D'},
+        {name: "midnight" , color:'#3D405B'},
+        {name: "orange" , color:'#E07A5F'},
+        {name: "purple" , color:'#7678ED'}
+      ],
+      removeColor(index){
+        this.colors.splice(index,1)
+      },
       addPlayer(player){
           this.turns.push(player)
-          this.currentTurn = this.turns[0]   
+          player.updateScoreBoard()  
+          this.currentTurn = this.turns[0] 
       },
       updateBoardSize(num){
         if(num > 6) {
@@ -77,7 +90,7 @@ $(()=>{
               let holeRow = parseInt(classList[2])
               let holeCol = parseInt(typeof classList[3] === 'undefined'? classList[2]: classList[3])
           
-              if((holeRow === connectFour.game.length-1) || (["blue","red"].includes(connectFour.game[holeRow+1][holeCol]))) {
+              if((holeRow === connectFour.game.length-1) || ([connectFour.turns[0].team,connectFour.turns[1].team].includes(connectFour.game[holeRow+1][holeCol]))) {
                   connectFour.placeChip(hole,holeRow,holeCol)
               }
           }
@@ -107,7 +120,7 @@ $(()=>{
       fallIntoPlace(holeCol){
           let startRow = 0
           const fall = setInterval(()=>{
-          if((startRow === this.game.length-1) || (["blue","red"].includes(this.game[startRow][holeCol]))){
+          if((startRow === this.game.length-1) || ([this.turns[0].team,this.turns[1].team].includes(this.game[startRow][holeCol]))){
               clearInterval(fall)
           }
               $(`#${startRow-1}-${holeCol}`).removeClass(this.currentTurn.team)
@@ -184,6 +197,10 @@ $(()=>{
           this.teamNo = teamNo
           this.score = 0
       }
+      updateScoreBoard(){
+        $(`.team-${this.teamNo}`).css('color',this.color)
+        $(`#team-${this.teamNo}-name`).text(`${this.team} team`)
+      }
       updateScore(){
           this.score++
           $(`#team-${this.teamNo}-score`).text(this.score)
@@ -191,8 +208,11 @@ $(()=>{
   }
 
   ///Create 2 players
-  const player1 = new Player('red','#C91818',1)
-  const player2 = new Player('blue','#1874C9',2)
+  let randIndex = Math.floor(Math.random()*connectFour.colors.length)
+  const player1 = new Player(connectFour.colors[randIndex].name,connectFour.colors[randIndex].color,1)
+  connectFour.removeColor(randIndex)
+  randIndex = Math.floor(Math.random()*connectFour.colors.length)
+  const player2 = new Player(connectFour.colors[randIndex].name,connectFour.colors[randIndex].color,2)
 
   ///Add players to the game
   connectFour.addPlayer(player1)
