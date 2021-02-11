@@ -161,13 +161,6 @@ $(()=>{
       ///////////////////////
       /////Falling into place
       ///////////////////////
-      /* Pseudo code 
-      when a hole is clicked it should set off a function that 
-      1. turns the top hole the color of that team through adding a class
-      2. removes the class from te previous hole and adds it to the next hole 
-      3. 1 and 2 continue until the next hole in the column is filled with a red or blue chip
-      4. humans should be able to see this occurring, so a set time interval should be specified between class changes
-      */
       fallIntoPlace(holeCol){
           let startRow = 0
           const fall = setInterval(()=>{
