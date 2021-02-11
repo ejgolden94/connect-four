@@ -11,7 +11,7 @@ $(()=>{
       rows: 6,
       colors:[
         {name: "red" , color:'#D1495B'},
-        {name: "blue" , color:'#00798C'},
+        {name: "blue" , color:'#4EA8DE'},
         {name: "pink" , color:'#F15BB5'},
         {name: "teal" , color:'#2EC4B6'},
         {name: "midnight" , color:'#003049'},
