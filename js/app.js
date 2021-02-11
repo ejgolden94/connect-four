@@ -10,12 +10,13 @@ $(()=>{
       columns: 7,
       rows: 6,
       colors:[
-        {name: "red" , color:'#C91818'},
-        {name: "blue" , color:'#1874C9'},
-        {name: "pink" , color:'#F28482'},
-        {name: "teal" , color:'#84A59D'},
-        {name: "midnight" , color:'#3D405B'},
-        {name: "orange" , color:'#E07A5F'},
+        {name: "red" , color:'#D1495B'},
+        {name: "blue" , color:'#00798C'},
+        {name: "pink" , color:'#F15BB5'},
+        {name: "teal" , color:'#2EC4B6'},
+        {name: "midnight" , color:'#003049'},
+        {name: "green" , color:'#90BE6D'},
+        {name: "orange" , color:'#FF9F1C'},
         {name: "purple" , color:'#7678ED'}
       ],
       //////////////////
@@ -28,7 +29,8 @@ $(()=>{
       addPlayer(player){
           this.turns.push(player)
           player.updateScoreBoard()  
-          this.currentTurn = this.turns[0] 
+          // this.currentTurn = this.turns[0]
+          this.changeTurn() 
       },
       updateBoardSize(num){
         if(num > 6) {
@@ -122,9 +124,17 @@ $(()=>{
       ////////////////////////////
       ////Functions to make a move
       ////////////////////////////
+      changeTurn(){
+        if(this.currentTurn === 'none'){
+          this.currentTurn = this.turns[0]
+        }else{
+          this.currentTurn = this.turns[(this.turns.indexOf(this.currentTurn)+1)%this.turns.length]
+          let nextUp = this.turns.filter(player => player!==this.currentTurn)
+          $('#player-up > div').remove()
+          $('#player-up').append($('<div>').addClass(`player ${nextUp[0].team}`))
+        }
+      },
       checkValidMove(event){
-          // console.log(this.playing) /// why is this undefined .. 
-          // console.log(connectFour.playing)
           if (connectFour.playing){
               const hole = $(event.target)
               const classList = hole.attr('class').split(' ')
@@ -138,7 +148,7 @@ $(()=>{
       },
       placeChip(hole,holeRow,holeCol){
           this.currentMoves++
-          this.currentTurn = this.turns[(this.turns.indexOf(this.currentTurn)+1)%this.turns.length]
+          this.changeTurn()
           this.game[holeRow][holeCol]= this.currentTurn.team
           hole.off('click',this.checkValidMove)
           hole.removeClass('available')
@@ -263,6 +273,6 @@ $(()=>{
 
   // create the initial board
   connectFour.generateBoard()
-  // console.log(connectFour)
+  console.log(connectFour)
 
 })

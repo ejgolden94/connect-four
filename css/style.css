@@ -15,11 +15,11 @@ h1 {
 }
 
 h2{
-    font-size: 4rem;
+    font-size: 3.5rem;
 }
 
 h3{
-    font-size: 2rem;
+    font-size: 2.5rem;
 }
 
 p{
@@ -28,10 +28,12 @@ p{
 }
 
 .gameplay{ 
-    width: 100%;
+    /* width: 100%; */
+    width: 1600px;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+    margin: 0 auto;
 }
 
 .controls{
@@ -101,6 +103,7 @@ button:focus{
 
 .game-container {
     width: 900px;
+    min-width: 900px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -109,8 +112,6 @@ button:focus{
 
 .slot{
     display: flex;
-    width: 150px;
-    height:150px;
     justify-content: center;
     align-items: center;
     background-color: #F8CF8B;
@@ -127,12 +128,15 @@ button:focus{
     background-color: rgb(201, 235, 134);
 } 
 
-.team-1 {
-    color: #C91818;
+#player-up {
+    text-align: center;
 }
 
-.team-2 {
-    color: #1874C9;
+.player{
+    width:75px;
+    height:75px;
+    border-radius: 50%;
+    margin:0 auto;
 }
 
 .modal {
@@ -153,9 +157,7 @@ button:focus{
 	width: 550px;
     border-radius: 2px;
     margin: 150px auto;
-	/*This will set the margins for the top and the bottom to 150px (or larger). The right and left will automatically set themselves (and keep the box centered horizontally).*/
 	box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
-    /*This will give the box some depth.*/
     padding: 4%;
 }
 
@@ -197,41 +199,46 @@ button:focus{
 }
 
 .color-buttons {
-    width: 350px;
+    width: 400px;
     margin: 50px auto;
 }
 
 .red {
-    background-color: #C91818;
+    background-color: #D1495B;
     color: white;
 }
 
 .blue {
-    background-color: #1874C9;
+    background-color: #00798C;
     color: white;
 }
 
 .pink{
-    background-color: #F28482;
+    background-color: #F15BB5;
     color: white;
 } 
 
 .teal{
-    background-color: #84A59D;
+    background-color: #2EC4B6;
     color: white;
 } 
 
 .midnight{
-    background-color: #3D405B;
+    background-color: #003049;
     color: white;
 } 
 
 .orange{
-    background-color: #E07A5F;
+    background-color: #FF9F1C;
     color: white;
 } 
 
 .purple{
     background-color: #7678ED;
+    color: white;
+} 
+
+.green{
+    background-color: #90BE6D;
     color: white;
 } 
