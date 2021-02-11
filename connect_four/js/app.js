@@ -18,8 +18,12 @@ $(()=>{
         {name: "orange" , color:'#E07A5F'},
         {name: "purple" , color:'#7678ED'}
       ],
-      removeColor(index){
-        this.colors.splice(index,1)
+      //////////////////
+      ///////Game Setup
+      /////////////////
+      removeColor(name){
+        const colorIndex = this.colors.map(element=>element.name).indexOf(name)
+        this.colors.splice(colorIndex,1)
       },
       addPlayer(player){
           this.turns.push(player)
@@ -47,6 +51,43 @@ $(()=>{
           $('#size').text('Six')
         }
         this.startGame()
+      },
+      updateButtons(button){
+        console.log(this);
+        const $colorButtons = $('.color-button')
+        $colorButtons.removeClass('color-button').addClass('unclickable')
+        $colorButtons.off('click',this.makePlayer)
+        //remove the color option from the game 
+        this.removeColor(button.text())
+        // make the next or close button work and highlight
+        if(button.parent().attr('id') === 'p1-buttons-container'){
+          $('#next').css('border','5px solid yellow').css('width','90').css('height','60')
+          $('#next').on('click',()=>{
+            $('#p1-colors-modal').css('display','none')
+            $('#p2-colors-modal').css('display','block')
+            this.createColorButtons()
+          })
+        }else if(button.parent().attr('id') === 'p2-buttons-container'){
+          $('#close-colors').css('border','5px solid yellow').css('width','90').css('height','60')
+          $('#close-colors').on('click',()=>{$('#p2-colors-modal').css('display','none')})
+        }
+      },
+      makePlayer(event){
+        console.log(this);
+        let players = connectFour.turns.length
+        const $button = $(event.target)
+        $button.css('border','3px solid black')
+        const newPlayer = new Player($button.text(),$button.css('background-color'),players+1);
+        connectFour.addPlayer(newPlayer)
+        connectFour.updateButtons($button)
+      },
+      createColorButtons(){  
+        $('.color-buttons').empty()
+        for(color of this.colors){
+          const $newBtn = $('<button>').text(color.name).addClass(color.name).addClass('color-button')
+          $newBtn.on('click',this.makePlayer)
+          $('.color-buttons').append($newBtn)
+        }
       },
       //////////////
       ////Start Game
@@ -190,6 +231,7 @@ $(()=>{
       }
   }
 
+  ///// Class for the two players
   class Player {
       constructor(team,color,teamNo) {
           this.team = team 
@@ -207,26 +249,20 @@ $(()=>{
       }
   }
 
-  ///Create 2 players
-  let randIndex = Math.floor(Math.random()*connectFour.colors.length)
-  const player1 = new Player(connectFour.colors[randIndex].name,connectFour.colors[randIndex].color,1)
-  connectFour.removeColor(randIndex)
-  randIndex = Math.floor(Math.random()*connectFour.colors.length)
-  const player2 = new Player(connectFour.colors[randIndex].name,connectFour.colors[randIndex].color,2)
-
-  ///Add players to the game
-  connectFour.addPlayer(player1)
-  connectFour.addPlayer(player2)
-
   //Event Listeners
   const $startbtn = $('#start').on('click',connectFour.startGame)
   const $incBoardbtn = $('#inc-board').on('click',()=>{connectFour.updateBoardSize(connectFour.boardSize+1)})
   const $decBoardbtn = $('#dec-board').on('click',()=>{connectFour.updateBoardSize(connectFour.boardSize-1)})
   const $openModal = $('#how-to').on('click',()=>{$('#modal').css('display','block')})
   const $closeModal = $('#close').on('click',()=>{$('#modal').css('display','none')})
+  // bring up the color menu immediately
+  setTimeout(()=>{
+    $('#p1-colors-modal').css('display','block')
+    connectFour.createColorButtons()
+  },00);
 
   // create the initial board
   connectFour.generateBoard()
-  console.log(connectFour)
+  // console.log(connectFour)
 
 })

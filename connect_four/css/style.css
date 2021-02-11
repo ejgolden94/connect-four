@@ -41,22 +41,25 @@ p{
     align-items: center;
 }
 
-button{
+.controls button{
     height: 80px;
     width: 150px;
+    margin: 40px 0;
+}
+
+button{
     border-radius: 15px;
     font-family: 'Patrick Hand SC', monospace;
     font-size: 1.5rem;
     color:#f5efe9;
     cursor: pointer;
-    margin: 40px 0;
 }
 
 button:focus{
     outline:none;
 }
 
-#how-to, #close{
+#how-to, #close, #next, #close-colors{
     background-color: #E07A5F; 
     border: 2px solid #E07A5F;
 }
@@ -122,34 +125,6 @@ button:focus{
 
 .available:hover{
     background-color: rgb(201, 235, 134);
-}
-
-.red {
-    background-color: #C91818;
-}
-
-.blue {
-    background-color: #1874C9;
-}
-
-.pink{
-    background-color: #F28482;
-} 
-
-.teal{
-    background-color: #84A59D;
-} 
-
-.midnight{
-    background-color: #3D405B;
-} 
-
-.orange{
-    background-color: #E07A5F;
-} 
-
-.purple{
-    background-color: #7678ED;
 } 
 
 .team-1 {
@@ -160,7 +135,7 @@ button:focus{
     color: #1874C9;
 }
 
-#modal {
+.modal {
 	background-color: rgba(0,0,0,0.5);
 	position: fixed;
 	top: 0;
@@ -172,7 +147,7 @@ button:focus{
     display: none;
 }
 
-#modal-textbox {
+.modal-textbox {
 	background-color: white;
 	height: 350px;
 	width: 550px;
@@ -183,11 +158,12 @@ button:focus{
     /*This will give the box some depth.*/
     padding: 4%;
 }
-#modal-textbox h3{
+
+.modal-textbox h3{
     margin: -10px auto 30px auto ;
 }
 
-#close {
+#close, #next, #close-colors {
     height: 40px;
     width:75px;
     margin: 0 auto;
@@ -204,3 +180,58 @@ button:focus{
 #span-dec{
     color: #F28482;
 }
+
+.color-button:hover {
+    border: 3px solid yellow;
+}
+
+.unclickable {
+    border: 3px solid palegreen;
+    cursor: default;
+}
+
+.color-buttons button {
+    margin: 10px;
+    padding: 10px;
+    border: none;
+}
+
+.color-buttons {
+    width: 350px;
+    margin: 50px auto;
+}
+
+.red {
+    background-color: #C91818;
+    color: white;
+}
+
+.blue {
+    background-color: #1874C9;
+    color: white;
+}
+
+.pink{
+    background-color: #F28482;
+    color: white;
+} 
+
+.teal{
+    background-color: #84A59D;
+    color: white;
+} 
+
+.midnight{
+    background-color: #3D405B;
+    color: white;
+} 
+
+.orange{
+    background-color: #E07A5F;
+    color: white;
+} 
+
+.purple{
+    background-color: #7678ED;
+    color: white;
+} 

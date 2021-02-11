@@ -36,13 +36,31 @@
     <div class="message">
 
     </div>
-    <div id="modal">
-        <div id='modal-textbox'>
+    <div class="modal" id="modal">
+        <div class='modal-textbox' id='modal-textbox'>
             <h3>How To Play Connect Four</h3>
             <p>Players take turns placing disks in lowest open slot in any column. The first player to get four disks in a row in any direction (horizontally, vertically or diagonally) wins the game! If all slots are filled and no one has gotten four disks in a row, the players tie!</p>
             <p>To start a new game, hit <span id="span-start"><strong>Start New Game</strong></span>. <br>To play Connect Five or Connect Six hit <span id="span-inc"><strong>Increase Board Size</strong></span>. <br>To return to a smaller board size, hit <span id="span-dec"><strong>Decrease Board Size</strong></span>.</p>
-            <div id='modal-footer'>
+            <div class='modal-footer' id='modal-footer' >
                 <button id="close">Close</button>
+            </div>
+        </div>
+    </div>
+    <div id="p1-colors-modal" class="modal">
+        <div id='p1-colors-modal-textbox' class='modal-textbox'>
+            <h3>Player 1 Pick Your Team</h3>
+            <div id='p1-buttons-container' class='color-buttons'></div>
+            <div id='p1-colors-modal-footer' class='modal-footer'>
+                <button id="next">Next</button>
+            </div>
+        </div>
+    </div>
+    <div id="p2-colors-modal" class="modal">
+        <div id='p2-colors-modal-textbox' class='modal-textbox'>
+            <h3>Player 2 Pick Your Team</h3>
+            <div id='p2-buttons-container' class='color-buttons'></div>
+            <div id='p2-colors-modal-footer' class='modal-footer'>
+                <button id="close-colors">Close</button>
             </div>
         </div>
     </div>
