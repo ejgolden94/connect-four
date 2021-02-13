@@ -1,8 +1,11 @@
-# connect-four
+# Connect Four
 Welcome to connect four! This is a virtual connect four game. This is the unit 1 project for General Assembly
 
 ## Wireframe 
 ![Wireframe](./connect_four_wireframe.png)
+
+## How to Play 
+Alternate turns placing chips on the board. The first on to get four in a row wins the game! If no one has won, and there are no moves left to make, the players tie. Reset the game when you're done. You can increase the board size from connect four to connect five or six, and then decrease it again. (Just note that doing this will also reset your game). At the beginning of the game, you will be prompted to pick your team color. Don't pick wrong, because there is no way to get back to this screen ever again! (without refreshing the page)
 
 ## User Stories
 As A player I want to 
