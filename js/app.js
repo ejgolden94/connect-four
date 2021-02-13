@@ -55,7 +55,6 @@ $(()=>{
         this.startGame()
       },
       updateButtons(button){
-        console.log(this);
         const $colorButtons = $('.color-button')
         $colorButtons.removeClass('color-button').addClass('unclickable')
         $colorButtons.off('click',this.makePlayer)
@@ -75,7 +74,6 @@ $(()=>{
         }
       },
       makePlayer(event){
-        console.log(this);
         let players = connectFour.turns.length
         const $button = $(event.target)
         $button.css('border','3px solid black')
@@ -107,7 +105,7 @@ $(()=>{
       /////////////////////////////////
       makeNewSlot(row,col){
           const $newSlot = $('<div>').addClass(`slot ${row} ${col}`)
-          const $newHole = $('<div>').addClass(`available hole ${row} ${col}`).attr('id',`${row}-${col}`).on('click',this.checkValidMove)
+          const $newHole = $('<div>').addClass(`hole ${row} ${col} available`).attr('id',`${row}-${col}`).on('click',this.checkValidMove)
           $('.game-container').append($newSlot.append($newHole))
           return $newSlot
       },
@@ -137,21 +135,24 @@ $(()=>{
       checkValidMove(event){
           if (connectFour.playing){
               const hole = $(event.target)
-              const classList = hole.attr('class').split(' ')
-              let holeRow = parseInt(classList[2])
-              let holeCol = parseInt(typeof classList[3] === 'undefined'? classList[2]: classList[3])
-          
-              if((holeRow === connectFour.game.length-1) || ([connectFour.turns[0].team,connectFour.turns[1].team].includes(connectFour.game[holeRow+1][holeCol]))) {
-                  connectFour.placeChip(hole,holeRow,holeCol)
+              const idList = hole.attr('id').split('-')
+              let holeCol = parseInt(typeof idList[1] === 'undefined'? idList[0]: idList[1])
+              let finalRow=0
+              for(row in connectFour.game){
+                if(parseInt(row) === connectFour.game.length-1
+                  ||[connectFour.turns[0].team,connectFour.turns[1].team].includes(connectFour.game[parseInt(row)+1][holeCol])){
+                  finalRow = row
+                  break
+                } 
               }
+              connectFour.placeChip(finalRow,holeCol)
           }
       },
-      placeChip(hole,holeRow,holeCol){
+      placeChip(holeRow,holeCol){
           this.currentMoves++
           this.changeTurn()
           this.game[holeRow][holeCol]= this.currentTurn.team
-          hole.off('click',this.checkValidMove)
-          hole.removeClass('available')
+          $(`#${holeRow}-${holeCol}`).removeClass('available')
           this.fallIntoPlace(holeCol)
           this.checkRow(holeRow)
           this.checkColumn(holeCol)
@@ -164,13 +165,13 @@ $(()=>{
       fallIntoPlace(holeCol){
           let startRow = 0
           const fall = setInterval(()=>{
-          if((startRow === this.game.length-1) || ([this.turns[0].team,this.turns[1].team].includes(this.game[startRow][holeCol]))){
-              clearInterval(fall)
-          }
-              $(`#${startRow-1}-${holeCol}`).removeClass(this.currentTurn.team)
-              $(`#${startRow}-${holeCol}`).addClass(this.currentTurn.team)
-              startRow++
-          },50)
+              if((startRow === this.game.length-1)|| ([this.turns[0].team,this.turns[1].team].includes(this.game[startRow][holeCol]))){
+                  clearInterval(fall)
+                }
+                  $(`#${startRow-1}-${holeCol}`).removeClass(this.currentTurn.team)
+                  $(`#${startRow}-${holeCol}`).addClass(this.currentTurn.team)
+                  startRow++
+            },50)
       },
       /////////////////////////////////////
       ////Functions to determine the winner
