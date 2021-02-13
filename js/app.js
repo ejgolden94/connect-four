@@ -22,16 +22,18 @@ $(()=>{
       //////////////////
       ///////Game Setup
       /////////////////
+      // once a player has chsen a team, remove that color from the options
       removeColor(name){
         const colorIndex = this.colors.map(element=>element.name).indexOf(name)
         this.colors.splice(colorIndex,1)
       },
+      // add a player to the game object
       addPlayer(player){
           this.turns.push(player)
           player.updateScoreBoard()  
-          // this.currentTurn = this.turns[0]
           this.changeTurn() 
       },
+      // update board size between 4, 5, and 6
       updateBoardSize(num){
         if(num > 6) {
           num = 6
@@ -54,6 +56,7 @@ $(()=>{
         }
         this.startGame()
       },
+      // updates the color buttons once the first player has chosen their team 
       updateButtons(button){
         const $colorButtons = $('.color-button')
         $colorButtons.removeClass('color-button').addClass('unclickable')
@@ -73,6 +76,7 @@ $(()=>{
           $('#close-colors').on('click',()=>{$('#p2-colors-modal').css('display','none')})
         }
       },
+      // creating a player once they've chosen a team 
       makePlayer(event){
         let players = connectFour.turns.length
         const $button = $(event.target)
@@ -81,6 +85,7 @@ $(()=>{
         connectFour.addPlayer(newPlayer)
         connectFour.updateButtons($button)
       },
+      // color buttons for picking your team 
       createColorButtons(){  
         $('.color-buttons').empty()
         for(color of this.colors){
@@ -122,6 +127,7 @@ $(()=>{
       ////////////////////////////
       ////Functions to make a move
       ////////////////////////////
+      /// change turns from one player to another and update the score board
       changeTurn(){
         if(this.currentTurn === 'none'){
           this.currentTurn = this.turns[0]
@@ -132,6 +138,7 @@ $(()=>{
           $('#player-up').append($('<div>').addClass(`player ${nextUp[0].team}`))
         }
       },
+      // based on where you clicked, this function decides where the hole will go 
       checkValidMove(event){
           if (connectFour.playing){
               const hole = $(event.target)
@@ -148,6 +155,7 @@ $(()=>{
               connectFour.placeChip(finalRow,holeCol)
           }
       },
+      // store the move in the game array and check all win conditions, also kick off falling
       placeChip(holeRow,holeCol){
           this.currentMoves++
           this.changeTurn()
@@ -162,16 +170,19 @@ $(()=>{
       ///////////////////////
       /////Falling into place
       ///////////////////////
+      /// 100 % just the visual of the chip falling into place
       fallIntoPlace(holeCol){
           let startRow = 0
           const fall = setInterval(()=>{
-              if((startRow === this.game.length-1)|| ([this.turns[0].team,this.turns[1].team].includes(this.game[startRow][holeCol]))){
-                  clearInterval(fall)
-                }
-                  $(`#${startRow-1}-${holeCol}`).removeClass(this.currentTurn.team)
-                  $(`#${startRow}-${holeCol}`).addClass(this.currentTurn.team)
-                  startRow++
-            },50)
+            $('.hole').off('click',this.checkValidMove)
+            if((startRow === this.game.length-1)|| ([this.turns[0].team,this.turns[1].team].includes(this.game[startRow][holeCol]))){
+                clearInterval(fall)
+                $('.hole').on('click',this.checkValidMove)
+              }
+                $(`#${startRow-1}-${holeCol}`).removeClass(this.currentTurn.team)
+                $(`#${startRow}-${holeCol}`).addClass(this.currentTurn.team)
+                startRow++
+          },50)
       },
       /////////////////////////////////////
       ////Functions to determine the winner
@@ -267,6 +278,4 @@ $(()=>{
 
   // create the initial board
   connectFour.generateBoard()
-  console.log(connectFour)
-
 })

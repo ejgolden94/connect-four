@@ -39,8 +39,8 @@ https://ejgolden94.github.io/connect-four/
 
 ## Unsolved problems and Fourthcoming Features
 ### Known Issues
-- There is a known issue in this game where if you click really quickly (before the last piece falls) you will experience some weirdness 
-
+- ~~There is a known issue in this game where if you click really quickly (before the last piece falls) you will experience some weirdness~~ RESOLVED
+ 
 ### Future Features
 - I am currently working on a single player mode where you would be playing a non random computer 
 - Considering working on adding a highlighting to the winning chips in a row
