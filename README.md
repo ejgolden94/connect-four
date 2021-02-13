@@ -39,5 +39,5 @@ https://ejgolden94.github.io/connect-four/
 - There is a known issue in this game where if you click really quickly (before the last piece falls) you will experience some weirdness 
 
 ### Future Features
-- I am currently qworking on a single player mode where you would be playing a non random computer 
+- I am currently working on a single player mode where you would be playing a non random computer 
 - Considering working on adding a highlighting to the winning chips in a row
