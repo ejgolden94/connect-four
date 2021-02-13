@@ -116,11 +116,13 @@ $(()=>{
       },
       generateBoard(){
           this.maxMoves = this.rows * this.columns
+          console.log(parseInt(($('.game-container').css('width')).replace('px','')));
+          const colWidth = parseInt(($('.game-container').css('width')).replace('px',''))
           for(let i=0;i<this.rows;i++){
               this.game.push([])
               for(let j=0;j<this.columns;j++){
                   this.game[i].push(j) 
-                  this.makeNewSlot(i,j).css('width',`${900/this.columns}px`).css('height',`${900/this.columns}px`)
+                  this.makeNewSlot(i,j).css('width',`${colWidth/this.columns}px`).css('height',`${colWidth/this.columns}px`)
               }
           }
       },
